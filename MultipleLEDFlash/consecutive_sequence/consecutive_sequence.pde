@@ -3,7 +3,7 @@
  * @description: Flashes multiple LED's in a consecutive sequence.
  */
  
-const int NUM_LEDS      = 8;
+const int NUM_LEDS       = 8;
 const int LEDS[NUM_LEDS] = {2, 3, 4, 5, 6, 7, 8, 9};
 
 // Program

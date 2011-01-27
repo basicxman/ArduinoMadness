@@ -40,20 +40,21 @@ void OscillateServo() {
     int setpoint;
     
     for (int offset = 1; offset < 70; ++offset) {
-      Serial.print("Current setpoint: ");
-      Serial.println(setpoint, DEC);
-      setpoint = SERVO_HOME_POSITION + offset;
-      mainServo.write(setpoint);
-      WaitUntilInPosition(setpoint);
-      delay(500);
-      
-      Serial.print("Current setpoint: ");
-      Serial.println(setpoint, DEC);
-      
-      setpoint = SERVO_HOME_POSITION - offset;
-      mainServo.write(setpoint);
-      WaitUntilInPosition(setpoint);
-      delay(500);
+      for (int i = 0; i < 2; ++i) {
+        Serial.print("Current setpoint: ");
+        Serial.println(setpoint, DEC);
+        setpoint = SERVO_HOME_POSITION + offset;
+        mainServo.write(setpoint);
+        WaitUntilInPosition(setpoint);
+        delay(300);
+        
+        Serial.print("Current setpoint: ");
+        Serial.println(setpoint, DEC);
+        setpoint = SERVO_HOME_POSITION - offset;
+        mainServo.write(setpoint);
+        WaitUntilInPosition(setpoint);
+        delay(300);
+      }
     }
   }
 }

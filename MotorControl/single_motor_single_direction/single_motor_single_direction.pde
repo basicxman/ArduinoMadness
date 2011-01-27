@@ -13,10 +13,26 @@
    delay(offDuration);
  }
  
+ void motorSweep(int accelerationDuration, int decelerationDuration, int holdDuration) {
+   int delayTime = accelerationDuration / 255; 
+   for (int speed = 0; speed <= 255; ++speed) {
+     analogWrite(MOTOR_PIN, speed);
+     delay(delayTime); 
+   }
+   
+   delay(holdDuration);
+   
+   delayTime = decelerationDuration / 255;
+   for (int speed = 255; speed >= 0; --speed) {
+     analogWrite(MOTOR_PIN, speed);
+     delay(delayTime); 
+   }
+ }
+ 
  void setup() {
    pinMode(MOTOR_PIN, OUTPUT); 
  }
  
  void loop() {
-   motorPulse(1000, 1000);
+   motorSweep(2000, 2000, 1000);
  }

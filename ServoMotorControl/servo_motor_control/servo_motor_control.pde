@@ -16,7 +16,7 @@ void AttachServo() {
   mainServo.attach(SERVO_PORT);
 }
 
-bool ServoInPosition(int position) {
+bool IsServoInPosition(int position) {
   int minValue = position - SERVO_POSITION_TOLERANCE;
   int maxValue = position + SERVO_POSITION_TOLERANCE;
  
@@ -24,7 +24,7 @@ bool ServoInPosition(int position) {
 }
 
 void WaitUntilInPosition(int position) {
-  while (!ServoInPosition(position))
+  while (!IsServoInPosition(position))
     delayMicroseconds(100); 
 }
 
@@ -39,7 +39,7 @@ void OscillateServo() {
   if (mainServo.attached()) {
     int setpoint;
     
-    for (int offset = 1; offset < 60; offset += 2) {
+    for (int offset = 1; offset < 70; ++offset) {
       Serial.print("Current setpoint: ");
       Serial.println(setpoint, DEC);
       setpoint = SERVO_HOME_POSITION + offset;
@@ -49,6 +49,7 @@ void OscillateServo() {
       
       Serial.print("Current setpoint: ");
       Serial.println(setpoint, DEC);
+      
       setpoint = SERVO_HOME_POSITION - offset;
       mainServo.write(setpoint);
       WaitUntilInPosition(setpoint);

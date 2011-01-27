@@ -1,6 +1,6 @@
 /*
  * @author: Andrew Horsman
- * @description: Controls a servo motor.
+ * @description: Controls a servo motor with the standard library.
  */
  
 #include <Servo.h>

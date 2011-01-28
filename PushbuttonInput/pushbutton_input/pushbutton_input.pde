@@ -8,10 +8,9 @@ const int LED_PIN = 13;
 const int LEFT_BUTTON_PIN  = 2;
 const int RIGHT_BUTTON_PIN = 3;
 
-const int LEFT  = 0;
-const int RIGHT = 1;
-int previousState[2];
-int currentState[1];
+int currentState[4];
+int previousState[4];
+int ledState = LOW;
 
 void InitializePins() {
   pinMode(LED_PIN, OUTPUT);
@@ -20,17 +19,25 @@ void InitializePins() {
   pinMode(RIGHT_BUTTON_PIN, INPUT); 
 }
 
+bool HasButtonBeenPressed(int button) {
+  previousState[button] = currentState[button];
+  currentState[button]  = digitalRead(button);
+  
+  return (previousState[button] == LOW && currentState[button] == HIGH);
+}
+
+void ToggleLED() {
+  ledState = (ledState == HIGH) ? LOW : HIGH; 
+  digitalWrite(LED_PIN, ledState);
+}
+
 void setup() {
   InitializePins();
- 
-  currentState[LEFT]    = digitalRead(LEFT_BUTTON_PIN);
-  currentState[RIGHT]   = digitalRead(RIGHT_BUTTON_PIN);
-  previousState[LEFT]   = currentState[LEFT];
-  previousState[RIGHT]  = currentState[RIGHT]; 
 }
 
 void loop() {
-  
+  if (HasButtonBeenPressed(LEFT_BUTTON_PIN) || HasButtonBeenPressed(RIGHT_BUTTON_PIN))
+    ToggleLED();
 }
 
 

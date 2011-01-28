@@ -21,8 +21,8 @@ void SetShiftRegisterPins() {
   pinMode(LATCH_PORT, OUTPUT); 
 }
 
-void TurnOnLatch()  { digitalWrite(LATCH_PORT, LOW);  }
-void TurnOffLatch() { digitalWrite(LATCH_PORT, HIGH); }
+void TurnOnLatch()  { digitalWrite(LATCH_PORT, HIGH);  }
+void TurnOffLatch() { digitalWrite(LATCH_PORT, LOW); }
 
 void SetShiftRegister(byte bitsToSend) { shiftOut(DATA_PORT, CLOCK_PORT, MSBFIRST, bitsToSend); }
 
@@ -55,6 +55,7 @@ void IncomingSequence(int speed) {
     rightCounter--;
     
     delay(speed);
+    
   } 
 }
 
@@ -63,5 +64,5 @@ void setup() {
 }
 
 void loop() {
-  IncomingSequence(SLOW);
+  IncomingSequence(RAPID);
 }

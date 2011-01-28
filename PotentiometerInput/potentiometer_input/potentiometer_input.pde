@@ -14,11 +14,16 @@ const int LED_PIN = 13;
 
 const float RANGE = 1023;
 
+unsigned int counter = 0;
+int ledState = LOW;
+
 void ledBlink(int speed) {
-  digitalWrite(LED_PIN, HIGH);
-  delay(speed);
-  digitalWrite(LED_PIN, LOW);
-  delay(speed); 
+  ++counter;
+  if (counter >= speed) {
+    counter = 0;
+    ledState = (ledState == LOW) ? HIGH : LOW; 
+    digitalWrite(LED_PIN, ledState);
+  }
 }
 
 int GetPotValue() {
@@ -31,14 +36,16 @@ float positionInPercentile() {
 
 void setup() {
   pinMode(LED_PIN, OUTPUT); 
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {
   Serial.print("Potentiometer Position: ");
-  Serial.println(positionInPercentile(), DEC);
+  Serial.print(positionInPercentile(), DEC);
+  Serial.print(" Counter: ");
+  Serial.println(counter, DEC);
   
-  ledBlink(GetPotValue());
+  ledBlink(GetPotValue() / 4);
   
-  delay(20);
+  delayMicroseconds(1);
 }
